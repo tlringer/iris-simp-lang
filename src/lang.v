@@ -41,6 +41,7 @@ pair into a single `expr` constructor that takes two expressions.
 
 Inductive base_lit :=
   | LitInt (n:Z)
+  | LitBool (b:bool)
   | LitUnit.
 
 Inductive bin_op :=
@@ -161,8 +162,8 @@ Global Instance val_eq_dec' : EqDecision val := val_eq_dec.
 Global Instance base_lit_countable : Countable base_lit.
 Proof.
   refine (inj_countable'
-            (λ l, match l with | LitInt n => inl n | LitUnit => inr () end)
-            (λ v, match v with | inl n => _ | inr _ => _ end) _).
+            (λ l, match l with | LitInt n => inl (inl n) | LitBool b => inl (inr b) | LitUnit => inr () end)
+            (λ v, match v with | inl (inl n) => _ | inl (inr b) => _ | inr _ => _ end) _).
   destruct x; eauto.
 Qed.
 
@@ -335,9 +336,6 @@ Now we'll give the pure semantics of simp_lang. These two Gallina definitions
 `bin_op_eval` and `un_op_eval` define the semantics of all the pure operations,
 when the types of their arguments make sense.
 |*)
-
-Definition LitBool (b:bool) : base_lit :=
-  if b then LitInt 1 else LitInt 0.
 
 Definition bin_op_eval (op: bin_op) (v1 v2: val) : option val :=
   match op with
