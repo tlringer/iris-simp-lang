@@ -410,10 +410,9 @@ Inductive head_step : expr → state → list observation → expr → state →
     un_op_eval op v = Some v' →
     head_step (UnOp op (Val v)) σ [] (Val v') σ []
   | IfFalseS e1 e2 σ :
-    head_step (If (Val $ LitV $ LitInt 0) e1 e2) σ [] e2 σ []
-  | IfTrueS n e1 e2 σ :
-    0 ≠ n →
-    head_step (If (Val $ LitV $ LitInt n) e1 e2) σ [] e1 σ []
+    head_step (If (Val $ LitV $ LitBool false) e1 e2) σ [] e2 σ []
+  | IfTrueS e1 e2 σ :
+    head_step (If (Val $ LitV $ LitBool true) e1 e2) σ [] e1 σ []
   | ForkS e σ:
     (* Fork is the only rule that spawns new threads *)
     head_step (Fork e) σ [] (Val $ LitV LitUnit) σ [e]

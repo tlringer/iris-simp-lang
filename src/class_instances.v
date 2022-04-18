@@ -103,6 +103,7 @@ Section pure_exec.
   Global Instance pure_if_true e1 e2 :
     PureExec True 1 (If (Val $ LitV $ LitBool true) e1 e2) e1.
   Proof. solve_pure_exec. Qed.
+
   Global Instance pure_if_false e1 e2 :
     PureExec True 1 (If (Val $ LitV $ LitBool false) e1 e2) e2.
   Proof. solve_pure_exec. Qed.
