@@ -25,7 +25,7 @@ Section heap.
     iIntros (Φ) "Hpre HΦ".
     unfold or.
     wp_pures.
-    destruct x; wp_pures.
+    induction x; wp_pures.
     - iIntros "!>".
       iApply "HΦ". done.
     - iIntros "!>".
