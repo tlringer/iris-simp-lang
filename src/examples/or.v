@@ -23,7 +23,7 @@ Section heap.
     {{{ (r:bool), RET #r; ⌜r = orb x y⌝ }}}.
   Proof.
     iIntros (Φ) "Hpre HΦ".
-    rewrite /or.
+    unfold or.
     wp_pures.
     destruct x; wp_pures.
     - iIntros "!>".
@@ -33,3 +33,5 @@ Section heap.
   Qed.
 
 End heap.
+
+Print wp_or.
