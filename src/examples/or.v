@@ -4,3 +4,4 @@ From iris Require Import options.
 Definition or: val :=  λ: "x" "y",
   if: "x" then #true else "y".
 
+(* TODO relate with orb and prove somehow (confused) *)
