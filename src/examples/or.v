@@ -13,7 +13,11 @@ Definition or: val :=
 Section heap.
   Context `{!heapGS Σ}.
 
-  Lemma wp_short_circuit_or (x y: bool) :
+  (*
+   * This lemma proves that the short-circuit or
+   * behaves like Coq's boolean orb on booleans.
+   *)
+  Lemma wp_or (x y: bool) :
     {{{ True }}}
       or #x #y
     {{{ (r:bool), RET #r; ⌜r = orb x y⌝ }}}.
